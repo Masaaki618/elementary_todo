@@ -36,10 +36,15 @@ export const App = () => {
     if (inputText !== "") {
       setImCompTodo((prevTodo) => [
         ...prevTodo,
-        { text: inputText, id: imCompTodo.length + 1 },
+        { text: inputText, id: imCompTodo.length },
       ]);
       SetInputText("");
     }
+  };
+
+  //引数で渡ってきたidとtodoリスト内に一致するtodoを削除
+  const onClickDeleteTodo = (id) => {
+    setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -59,12 +64,20 @@ export const App = () => {
           <p style={{ margin: "0" }}>未完了エリア</p>
           <ul>
             {imCompTodo.map((todo) => (
-              <li style={{ marginBottom: "10px" }}>
+              <li style={{ marginBottom: "10px" }} key={todo.id}>
                 {todo.text}
                 <Button variant="contained" sx={{ ml: 4 }}>
                   完了
                 </Button>
-                <Button variant="contained" color="error" sx={{ mx: 1 }}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  sx={{ mx: 1 }}
+                  onClick={() => {
+                    //todoのidを削除する関数に渡す
+                    onClickDeleteTodo(todo.id);
+                  }}
+                >
                   削除
                 </Button>
               </li>
