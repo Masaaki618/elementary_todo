@@ -23,6 +23,9 @@ export const App = () => {
   //未完了エリアのtodoに登録する初期値
   const [imCompTodo, setImCompTodo] = useState([]);
 
+  //完了エリアのtodoに登録する初期値
+  const [compTodo, setCompTodo] = useState([]);
+
   const onChangeInput = (e) => {
     //テキスト入力が行わるる毎にinputTextの値を書き換える
     SetInputText(e.target.value);
@@ -47,6 +50,12 @@ export const App = () => {
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
+  const onClickAddComp = (id) => {
+    const addCompeteTodo = imCompTodo[id];
+    setCompTodo((prevAddCompTodo) => [...prevAddCompTodo, addCompeteTodo]);
+    setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
+  };
+
   return (
     <Container>
       <h2>TODOリスト</h2>
@@ -66,7 +75,13 @@ export const App = () => {
             {imCompTodo.map((todo) => (
               <li style={{ marginBottom: "10px" }} key={todo.id}>
                 {todo.text}
-                <Button variant="contained" sx={{ ml: 4 }}>
+                <Button
+                  variant="contained"
+                  sx={{ ml: 4 }}
+                  onClick={() => {
+                    onClickAddComp(todo.id);
+                  }}
+                >
                   完了
                 </Button>
                 <Button
@@ -87,12 +102,14 @@ export const App = () => {
         <SCompEriaTodo>
           <p style={{ margin: "0" }}>完了エリア</p>
           <ul>
-            <li style={{ marginBottom: "10px" }}>
-              リスト1
-              <Button color="success" variant="contained" sx={{ ml: 4 }}>
-                未完了
-              </Button>
-            </li>
+            {compTodo.map((todo) => (
+              <li style={{ marginBottom: "10px" }} key={todo.id}>
+                {todo.text}
+                <Button color="success" variant="contained" sx={{ ml: 4 }}>
+                  未完了
+                </Button>
+              </li>
+            ))}
           </ul>
         </SCompEriaTodo>
       </Box>
