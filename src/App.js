@@ -51,8 +51,8 @@ export const App = () => {
   };
 
   const onClickAddComp = (id) => {
-    const addCompeteTodo = imCompTodo[id];
-    setCompTodo((prevAddCompTodo) => [...prevAddCompTodo, addCompeteTodo]);
+    const addTodo = imCompTodo.find((todo) => todo.id === id);
+    setCompTodo((prevAddTodo) => [...prevAddTodo, { ...addTodo }]);
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
