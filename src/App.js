@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import style from "./style.module.css";
 import { Container, TextField, Box, Button } from "@mui/material";
 import { useState } from "react";
 
@@ -26,15 +27,25 @@ export const App = () => {
   //完了エリアのtodoに登録する初期値
   const [compTodo, setCompTodo] = useState([]);
 
+  //バリデーションの設定
+  const [isvalid, setIsvalid] = useState(false);
+
   const onChangeInput = (e) => {
     //テキスト入力が行わるる毎にinputTextの値を書き換える
-    SetInputText(e.target.value);
+    if (e.target.value.length < 10) {
+      setIsvalid(false);
+      SetInputText(e.target.value);
+    } else {
+      setIsvalid(true);
+      SetInputText(e.target.value.splice(0, -1));
+    }
   };
 
   //エンターが押された時の挙動
   const onSubmitInput = (e) => {
     //ページ遷移使用する挙動をキャンセル
     e.preventDefault();
+
     //inputエリアが空白の場合は登録できないようにする
     if (inputText !== "") {
       setImCompTodo((prevTodo) => [
@@ -42,6 +53,7 @@ export const App = () => {
         { text: inputText, id: imCompTodo.length },
       ]);
       SetInputText("");
+      setIsvalid(false);
     }
   };
 
@@ -50,12 +62,14 @@ export const App = () => {
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
+  //未完了エリアから完了エリアへの移動
   const onClickAddComp = (id) => {
     const addTodo = imCompTodo.find((todo) => todo.id === id);
     setCompTodo((prevAddTodo) => [...prevAddTodo, { ...addTodo }]);
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
+  //完了エリアから未完了エリアへの移動
   const onClickBackImcomp = (id) => {
     const backTodo = compTodo.find((todo) => todo.id === id);
     setImCompTodo((prevAddTodo) => [...prevAddTodo, { ...backTodo }]);
@@ -71,8 +85,12 @@ export const App = () => {
           label="TODOを入力"
           variant="standard"
           value={inputText}
+          className={isvalid ? style.input_validation : ""}
           onChange={onChangeInput}
         />
+        {isvalid ? (
+          <p className={style["error-message"]}>10文字以上は入力できません</p>
+        ) : null}
       </form>
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 5 }}>
         <SIncompEriaTodo>
