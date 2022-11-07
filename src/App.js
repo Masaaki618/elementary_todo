@@ -56,6 +56,12 @@ export const App = () => {
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
+  const onClickBackImcomp = (id) => {
+    const backTodo = compTodo.find((todo) => todo.id === id);
+    setImCompTodo((prevAddTodo) => [...prevAddTodo, { ...backTodo }]);
+    setCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
+  };
+
   return (
     <Container>
       <h2>TODOリスト</h2>
@@ -105,7 +111,14 @@ export const App = () => {
             {compTodo.map((todo) => (
               <li style={{ marginBottom: "10px" }} key={todo.id}>
                 {todo.text}
-                <Button color="success" variant="contained" sx={{ ml: 4 }}>
+                <Button
+                  color="success"
+                  variant="contained"
+                  sx={{ ml: 4 }}
+                  onClick={() => {
+                    onClickBackImcomp(todo.id);
+                  }}
+                >
                   未完了
                 </Button>
               </li>
