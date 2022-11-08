@@ -1,23 +1,10 @@
-import styled from "@emotion/styled";
-import style from "./style.module.css";
-import { Container, TextField, Box, Button } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { useState, useEffect } from "react";
+import { Input } from "./components/Input";
+import { ImCompEria } from "./components/ImCompEria.jsx";
+import { CompEria } from "./components/CompEria";
 
 export const App = () => {
-  const SIncompEriaTodo = styled.div`
-    width: 400px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 20px 20px 0;
-  `;
-
-  const SCompEriaTodo = styled.div`
-    width: 400px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 20px 20px 0;
-  `;
-
   //インプットエリアの初期値
   const [inputText, SetInputText] = useState("");
 
@@ -101,70 +88,19 @@ export const App = () => {
   return (
     <Container>
       <h2>TODOリスト</h2>
-      <form onSubmit={onSubmitInput}>
-        <TextField
-          id="standard-basic"
-          label="TODOを入力"
-          variant="standard"
-          value={inputText}
-          className={isvalid ? style.input_validation : ""}
-          onChange={onChangeInput}
-        />
-        {isvalid ? (
-          <p className={style["error-message"]}>10文字以上は入力できません</p>
-        ) : null}
-      </form>
+      <Input
+        onSubmitInput={onSubmitInput}
+        inputText={inputText}
+        isvalid={isvalid}
+        onChangeInput={onChangeInput}
+      />
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 5 }}>
-        <SIncompEriaTodo>
-          <p style={{ margin: "0" }}>未完了エリア</p>
-          <ul>
-            {imCompTodo.map((todo) => (
-              <li style={{ marginBottom: "10px" }} key={todo.id}>
-                {todo.text}
-                <Button
-                  variant="contained"
-                  sx={{ ml: 4 }}
-                  onClick={() => {
-                    onClickAddComp(todo.id);
-                  }}
-                >
-                  完了
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  sx={{ mx: 1 }}
-                  onClick={() => {
-                    //todoのidを削除する関数に渡す
-                    onClickDeleteTodo(todo.id);
-                  }}
-                >
-                  削除
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </SIncompEriaTodo>
-        <SCompEriaTodo>
-          <p style={{ margin: "0" }}>完了エリア</p>
-          <ul>
-            {compTodo.map((todo) => (
-              <li style={{ marginBottom: "10px" }} key={todo.id}>
-                {todo.text}
-                <Button
-                  color="success"
-                  variant="contained"
-                  sx={{ ml: 4 }}
-                  onClick={() => {
-                    onClickBackImcomp(todo.id);
-                  }}
-                >
-                  未完了
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </SCompEriaTodo>
+        <ImCompEria
+          imCompTodo={imCompTodo}
+          onClickAddComp={onClickAddComp}
+          onClickDeleteTodo={onClickDeleteTodo}
+        />
+        <CompEria compTodo={compTodo} onClickBackImcomp={onClickBackImcomp} />
       </Box>
     </Container>
   );
