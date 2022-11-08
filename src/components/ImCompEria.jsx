@@ -15,7 +15,7 @@ export const ImCompEria = ({
 
   return (
     <SIncompEriaTodo>
-      <p style={{ margin: "0" }}>未完了エリア</p>
+      <p style={{ margin: "0" }}>未完了のTODO</p>
       <ul>
         {imCompTodo.map((todo) => (
           <li style={{ marginBottom: "10px" }} key={todo.id}>

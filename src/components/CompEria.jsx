@@ -9,7 +9,7 @@ export const CompEria = ({ compTodo, onClickBackImcomp }) => {
   `;
   return (
     <SCompEriaTodo>
-      <p style={{ margin: "0" }}>完了エリア</p>
+      <p style={{ margin: "0" }}>完了したTODO</p>
       <ul>
         {compTodo.map((todo) => (
           <li style={{ marginBottom: "10px" }} key={todo.id}>
