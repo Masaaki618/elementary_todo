@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import style from "./style.module.css";
 import { Container, TextField, Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const App = () => {
   const SIncompEriaTodo = styled.div`
@@ -22,10 +22,32 @@ export const App = () => {
   const [inputText, SetInputText] = useState("");
 
   //未完了エリアのtodoに登録する初期値
-  const [imCompTodo, setImCompTodo] = useState([]);
+  const [imCompTodo, setImCompTodo] = useState(() => {
+    const savedImcompTodos = localStorage.getItem("imCompTodo");
+    if (savedImcompTodos) {
+      return JSON.parse(savedImcompTodos);
+    } else {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("imCompTodo", JSON.stringify(imCompTodo));
+  }, [imCompTodo]);
 
   //完了エリアのtodoに登録する初期値
-  const [compTodo, setCompTodo] = useState([]);
+  const [compTodo, setCompTodo] = useState(() => {
+    const savedCompTodos = localStorage.getItem("compTodo");
+    if (savedCompTodos) {
+      return JSON.parse(savedCompTodos);
+    } else {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("compTodo", JSON.stringify(compTodo));
+  }, [compTodo]);
 
   //バリデーションの設定
   const [isvalid, setIsvalid] = useState(false);
