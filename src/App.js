@@ -95,12 +95,21 @@ export const App = () => {
         onChangeInput={onChangeInput}
       />
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 5 }}>
-        <ImCompEria
-          imCompTodo={imCompTodo}
-          onClickAddComp={onClickAddComp}
-          onClickDeleteTodo={onClickDeleteTodo}
-        />
-        <CompEria compTodo={compTodo} onClickBackImcomp={onClickBackImcomp} />
+        {imCompTodo.length === 0 ? (
+          <p>未完了のTODOはありません</p>
+        ) : (
+          <ImCompEria
+            imCompTodo={imCompTodo}
+            onClickAddComp={onClickAddComp}
+            onClickDeleteTodo={onClickDeleteTodo}
+          />
+        )}
+
+        {compTodo.length === 0 ? (
+          <p>完了したTODOはありません</p>
+        ) : (
+          <CompEria compTodo={compTodo} onClickBackImcomp={onClickBackImcomp} />
+        )}
       </Box>
     </Container>
   );
