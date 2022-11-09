@@ -39,7 +39,7 @@ export const App = () => {
   //バリデーションの設定
   const [isvalid, setIsvalid] = useState(false);
 
-  const onChangeInput = (e) => {
+  const changeInput = (e) => {
     //テキスト入力が行わるる毎にinputTextの値を書き換える
     if (e.target.value.length <= 10) {
       setIsvalid(false);
@@ -51,7 +51,7 @@ export const App = () => {
   };
 
   //エンターが押された時の挙動
-  const onSubmitInput = (e) => {
+  const submitInput = (e) => {
     //ページ遷移使用する挙動をキャンセル
     e.preventDefault();
 
@@ -67,19 +67,19 @@ export const App = () => {
   };
 
   //引数で渡ってきたidとtodoリスト内に一致するtodoを削除
-  const onClickDeleteTodo = (id) => {
+  const deleteTodo = (id) => {
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
   //未完了エリアから完了エリアへの移動
-  const onClickAddComp = (id) => {
+  const moveToCompleteArea = (id) => {
     const addTodo = imcopleteTodo.find((todo) => todo.id === id);
     setCompTodo((prevAddTodo) => [...prevAddTodo, { ...addTodo }]);
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
   //完了エリアから未完了エリアへの移動
-  const onClickBackImcomp = (id) => {
+  const moveToImcompleteArea = (id) => {
     const backTodo = completedTodo.find((todo) => todo.id === id);
     setImCompTodo((prevAddTodo) => [...prevAddTodo, { ...backTodo }]);
     setCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
@@ -89,10 +89,10 @@ export const App = () => {
     <Container>
       <h2>TODOリスト</h2>
       <Input
-        onSubmitInput={onSubmitInput}
+        submitInput={submitInput}
         inputText={inputText}
         isvalid={isvalid}
-        onChangeInput={onChangeInput}
+        changeInput={changeInput}
       />
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 5 }}>
         {imcopleteTodo.length === 0 ? (
@@ -100,8 +100,8 @@ export const App = () => {
         ) : (
           <ImCompEria
             imcopleteTodo={imcopleteTodo}
-            onClickAddComp={onClickAddComp}
-            onClickDeleteTodo={onClickDeleteTodo}
+            moveToCompleteArea={moveToCompleteArea}
+            deleteTodo={deleteTodo}
           />
         )}
 
@@ -110,7 +110,7 @@ export const App = () => {
         ) : (
           <CompEria
             completedTodo={completedTodo}
-            onClickBackImcomp={onClickBackImcomp}
+            moveToImcompleteArea={moveToImcompleteArea}
           />
         )}
       </Box>

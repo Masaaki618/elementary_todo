@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-export const CompEria = ({ completedTodo, onClickBackImcomp }) => {
+export const CompEria = ({ completedTodo, moveToImcompleteArea }) => {
   const SCompEriaTodo = styled.div`
     width: 400px;
     border: 1px solid #333;
@@ -19,7 +19,7 @@ export const CompEria = ({ completedTodo, onClickBackImcomp }) => {
               variant="contained"
               sx={{ ml: 4 }}
               onClick={() => {
-                onClickBackImcomp(todo.id);
+                moveToImcompleteArea(todo.id);
               }}
             >
               未完了
