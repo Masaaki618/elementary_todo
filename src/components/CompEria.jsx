@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-export const CompEria = ({ compTodo, onClickBackImcomp }) => {
+export const CompEria = ({ completedTodo, onClickBackImcomp }) => {
   const SCompEriaTodo = styled.div`
     width: 400px;
     border: 1px solid #333;
@@ -11,7 +11,7 @@ export const CompEria = ({ compTodo, onClickBackImcomp }) => {
     <SCompEriaTodo>
       <p style={{ margin: "0" }}>完了したTODO</p>
       <ul>
-        {compTodo.map((todo) => (
+        {completedTodo.map((todo) => (
           <li style={{ marginBottom: "10px" }} key={todo.id}>
             {todo.text}
             <Button

@@ -9,22 +9,22 @@ export const App = () => {
   const [inputText, SetInputText] = useState("");
 
   //未完了エリアのtodoに登録する初期値
-  const [imCompTodo, setImCompTodo] = useState(() => {
-    const savedImcompTodos = localStorage.getItem("imCompTodo");
-    if (savedImcompTodos) {
-      return JSON.parse(savedImcompTodos);
+  const [imcopleteTodo, setImCompTodo] = useState(() => {
+    const savedImcompletedTodo = localStorage.getItem("imcopleteTodo");
+    if (savedImcompletedTodo) {
+      return JSON.parse(savedImcompletedTodo);
     } else {
       return [];
     }
   });
 
   useEffect(() => {
-    localStorage.setItem("imCompTodo", JSON.stringify(imCompTodo));
-  }, [imCompTodo]);
+    localStorage.setItem("imcopleteTodo", JSON.stringify(imcopleteTodo));
+  }, [imcopleteTodo]);
 
   //完了エリアのtodoに登録する初期値
-  const [compTodo, setCompTodo] = useState(() => {
-    const savedCompTodos = localStorage.getItem("compTodo");
+  const [completedTodo, setCompTodo] = useState(() => {
+    const savedCompTodos = localStorage.getItem("completedTodo");
     if (savedCompTodos) {
       return JSON.parse(savedCompTodos);
     } else {
@@ -33,8 +33,8 @@ export const App = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("compTodo", JSON.stringify(compTodo));
-  }, [compTodo]);
+    localStorage.setItem("completedTodo", JSON.stringify(completedTodo));
+  }, [completedTodo]);
 
   //バリデーションの設定
   const [isvalid, setIsvalid] = useState(false);
@@ -59,7 +59,7 @@ export const App = () => {
     if (inputText !== "") {
       setImCompTodo((prevTodo) => [
         ...prevTodo,
-        { text: inputText, id: imCompTodo.length },
+        { text: inputText, id: imcopleteTodo.length },
       ]);
       SetInputText("");
       setIsvalid(false);
@@ -73,14 +73,14 @@ export const App = () => {
 
   //未完了エリアから完了エリアへの移動
   const onClickAddComp = (id) => {
-    const addTodo = imCompTodo.find((todo) => todo.id === id);
+    const addTodo = imcopleteTodo.find((todo) => todo.id === id);
     setCompTodo((prevAddTodo) => [...prevAddTodo, { ...addTodo }]);
     setImCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
   //完了エリアから未完了エリアへの移動
   const onClickBackImcomp = (id) => {
-    const backTodo = compTodo.find((todo) => todo.id === id);
+    const backTodo = completedTodo.find((todo) => todo.id === id);
     setImCompTodo((prevAddTodo) => [...prevAddTodo, { ...backTodo }]);
     setCompTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
@@ -95,20 +95,20 @@ export const App = () => {
         onChangeInput={onChangeInput}
       />
       <Box sx={{ display: "flex", justifyContent: "space-around", mt: 5 }}>
-        {imCompTodo.length === 0 ? (
+        {imcopleteTodo.length === 0 ? (
           <p>未完了のTODOはありません</p>
         ) : (
           <ImCompEria
-            imCompTodo={imCompTodo}
+            imcopleteTodo={imcopleteTodo}
             onClickAddComp={onClickAddComp}
             onClickDeleteTodo={onClickDeleteTodo}
           />
         )}
 
-        {compTodo.length === 0 ? (
+        {completedTodo.length === 0 ? (
           <p>完了したTODOはありません</p>
         ) : (
-          <CompEria compTodo={compTodo} onClickBackImcomp={onClickBackImcomp} />
+          <CompEria completedTodo={completedTodo} onClickBackImcomp={onClickBackImcomp} />
         )}
       </Box>
     </Container>

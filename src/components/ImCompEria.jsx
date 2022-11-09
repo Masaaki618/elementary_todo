@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
 export const ImCompEria = ({
-  imCompTodo,
+  imcopleteTodo,
   onClickAddComp,
   onClickDeleteTodo,
 }) => {
@@ -17,7 +17,7 @@ export const ImCompEria = ({
     <SIncompEriaTodo>
       <p style={{ margin: "0" }}>未完了のTODO</p>
       <ul>
-        {imCompTodo.map((todo) => (
+        {imcopleteTodo.map((todo) => (
           <li style={{ marginBottom: "10px" }} key={todo.id}>
             {todo.text}
             <Button
