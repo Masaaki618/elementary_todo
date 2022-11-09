@@ -1,8 +1,8 @@
 import { Container, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Input } from "./components/Input";
-import { ImCompEria } from "./components/ImCompEria.jsx";
-import { CompEria } from "./components/CompEria";
+import { ImCompleteEria } from "./components/ImCompleteEria";
+import { CompleteEria } from "./components/CompleteEria";
 
 export const App = () => {
   //インプットエリアの初期値
@@ -98,7 +98,7 @@ export const App = () => {
         {imcopleteTodo.length === 0 ? (
           <p>未完了のTODOはありません</p>
         ) : (
-          <ImCompEria
+          <ImCompleteEria
             imcopleteTodo={imcopleteTodo}
             moveToCompleteArea={moveToCompleteArea}
             deleteTodo={deleteTodo}
@@ -108,7 +108,7 @@ export const App = () => {
         {completedTodo.length === 0 ? (
           <p>完了したTODOはありません</p>
         ) : (
-          <CompEria
+          <CompleteEria
             completedTodo={completedTodo}
             moveToImcompleteArea={moveToImcompleteArea}
           />

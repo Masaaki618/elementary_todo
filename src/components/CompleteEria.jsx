@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-export const CompEria = ({ completedTodo, moveToImcompleteArea }) => {
+export const CompleteEria = ({ completedTodo, moveToImcompleteArea }) => {
   const SCompEriaTodo = styled.div`
     width: 400px;
     border: 1px solid #333;

@@ -1,7 +1,11 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
-export const ImCompEria = ({ moveToCompleteArea, onClickAddComp, deleteTodo }) => {
+export const ImCompleteEria = ({
+  imcopleteTodo,
+  moveToCompleteArea,
+  deleteTodo,
+}) => {
   const SIncompEriaTodo = styled.div`
     width: 400px;
     border: 1px solid #333;
@@ -13,14 +17,14 @@ export const ImCompEria = ({ moveToCompleteArea, onClickAddComp, deleteTodo }) =
     <SIncompEriaTodo>
       <p style={{ margin: "0" }}>未完了のTODO</p>
       <ul>
-        {moveToCompleteArea.map((todo) => (
+        {imcopleteTodo.map((todo) => (
           <li style={{ marginBottom: "10px" }} key={todo.id}>
             {todo.text}
             <Button
               variant="contained"
               sx={{ ml: 4 }}
               onClick={() => {
-                onClickAddComp(todo.id);
+                moveToCompleteArea(todo.id);
               }}
             >
               完了
