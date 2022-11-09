@@ -41,7 +41,7 @@ export const App = () => {
 
   const onChangeInput = (e) => {
     //テキスト入力が行わるる毎にinputTextの値を書き換える
-    if (e.target.value.length < 10) {
+    if (e.target.value.length <= 10) {
       setIsvalid(false);
       SetInputText(e.target.value);
     } else {
@@ -108,7 +108,10 @@ export const App = () => {
         {completedTodo.length === 0 ? (
           <p>完了したTODOはありません</p>
         ) : (
-          <CompEria completedTodo={completedTodo} onClickBackImcomp={onClickBackImcomp} />
+          <CompEria
+            completedTodo={completedTodo}
+            onClickBackImcomp={onClickBackImcomp}
+          />
         )}
       </Box>
     </Container>
